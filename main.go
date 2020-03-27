@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 	"sync"
@@ -9,6 +10,8 @@ import (
 func main() {
 	env1 := os.Getenv("GNOMOCK_TEST_1")
 	env2 := os.Getenv("GNOMOCK_TEST_2")
+
+	fmt.Printf("starting with env1 = '%s', env2 = '%s'\n", env1, env2)
 
 	mux80 := http.NewServeMux()
 	mux80.HandleFunc("/", echoHandler("80"))

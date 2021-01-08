@@ -11,6 +11,7 @@ func main() {
 	env1 := os.Getenv("GNOMOCK_TEST_1")
 	env2 := os.Getenv("GNOMOCK_TEST_2")
 
+	fmt.Println("received args:", os.Args[1:])
 	fmt.Printf("starting with env1 = '%s', env2 = '%s'\n", env1, env2)
 
 	mux80 := http.NewServeMux()

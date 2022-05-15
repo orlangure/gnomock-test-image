@@ -11,3 +11,8 @@ value to `GET /env1` on port 80.
 
 When started with environment variable `GNOMOCK_TEST_2`, it replies with its
 value to `GET /env2` on port 8080.
+
+When started with environment variable `GNOMOCK_REQUEST_TARGET`, it performs a
+`GET` request to that URL (i.e `http://container-name`) and returns the same
+status code it received from the target, every time it receives a new request
+to `/request` endpoint.

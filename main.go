@@ -10,6 +10,7 @@ import (
 func main() {
 	env1 := os.Getenv("GNOMOCK_TEST_1")
 	env2 := os.Getenv("GNOMOCK_TEST_2")
+	requestTarget := os.Getenv("GNOMOCK_REQUEST_TARGET")
 
 	fmt.Println("received args:", os.Args[1:])
 	fmt.Printf("starting with env1 = '%s', env2 = '%s'\n", env1, env2)
@@ -17,6 +18,15 @@ func main() {
 	mux80 := http.NewServeMux()
 	mux80.HandleFunc("/", echoHandler("80"))
 	mux80.HandleFunc("/env1", echoHandler(env1))
+	mux80.HandleFunc("/request", func(w http.ResponseWriter, r *http.Request) {
+		res, err := http.Get(requestTarget)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		w.WriteHeader(res.StatusCode)
+	})
 
 	mux8080 := http.NewServeMux()
 	mux8080.HandleFunc("/", echoHandler("8080"))
